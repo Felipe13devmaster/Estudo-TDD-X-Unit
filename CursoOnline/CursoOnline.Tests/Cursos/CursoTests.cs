@@ -7,6 +7,7 @@ using Xunit;
 namespace CursoOnline.Tests.Cursos
 {
     public class CursoTests
+
     {
         [Fact(DisplayName = "Deve_Criar_Curso")]
         public void Deve_Criar_Curso()
@@ -14,9 +15,9 @@ namespace CursoOnline.Tests.Cursos
             var cursoEsperado = new
             {
                 Nome = "Informática",
-                CargaHoraria = 80,
-                PublicoAlvo = "Estudantes",
-                Valor = 950
+                CargaHoraria = (double)80,//É neccessario informar o tipo explicitamnte pois o toExpected n possui inteligencia para diferenciar tipos numericos.
+                PublicoAlvo = PublicoAlvo.Estudante,
+                Valor = (decimal)950
             };
 
             var curso = new Curso(cursoEsperado.Nome, cursoEsperado.CargaHoraria, cursoEsperado.PublicoAlvo, cursoEsperado.Valor);
@@ -25,9 +26,17 @@ namespace CursoOnline.Tests.Cursos
         }
     }
 
+    public enum PublicoAlvo
+    {
+        Estudante,
+        Universitário,
+        Empregado,
+        Empreendedor
+    }
+
     public class Curso
     {
-        public Curso(string nome, double cargaHoraria, string publicoAlvo, decimal valor)
+        public Curso(string nome, double cargaHoraria, PublicoAlvo publicoAlvo, decimal valor)
         {
             Nome = nome;
             CargaHoraria = cargaHoraria;
@@ -37,7 +46,7 @@ namespace CursoOnline.Tests.Cursos
 
         public string Nome { get; private set; }
         public double CargaHoraria { get; private set; }
-        public string PublicoAlvo { get; private set; }
+        public PublicoAlvo PublicoAlvo { get; private set; }
         public decimal Valor { get; private set; }
     }
 }

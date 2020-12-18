@@ -1,10 +1,10 @@
 ﻿using Bogus;
+using CursoOnline.Domain.Entidades;
+using CursoOnline.Domain.Enums;
 using CursoOnline.Tests.Builders;
 using CursoOnline.Tests.Extensoes;
 using ExpectedObjects;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace CursoOnline.Tests.Cursos
@@ -14,7 +14,7 @@ namespace CursoOnline.Tests.Cursos
         private readonly string _nome;
         private readonly string _descricao;
         private readonly double _cargaHoraria;
-        private readonly PublicoAlvo _publicoAlvo;
+        private readonly EPublicoAlvo _publicoAlvo;
         private readonly decimal _valor;
 
         public CursoTests()//O construtor no xUnit difere do ctor de uma classe normal, pois o mesmo é executado novamente antes de cada metodo da classe de testes.
@@ -24,7 +24,7 @@ namespace CursoOnline.Tests.Cursos
             _nome = faker.Random.Word();
             _descricao = faker.Lorem.Paragraph();
             _cargaHoraria = faker.Random.Double(50, 100);
-            _publicoAlvo = PublicoAlvo.Estudante;
+            _publicoAlvo = EPublicoAlvo.Estudante;
             _valor = faker.Random.Decimal(100, 1000);
         }
 
@@ -79,40 +79,5 @@ namespace CursoOnline.Tests.Cursos
                 CursoBuilder.CriarNovoCurso().DefinirValor(valorInvalido).Build())
                 .ValidarMensagem("Valor inválido.");
         }
-    }
-
-    public enum PublicoAlvo
-    {
-        Estudante,
-        Universitário,
-        Empregado,
-        Empreendedor
-    }
-
-    public class Curso
-    {
-        public Curso(string nome, string descricao, double cargaHoraria, PublicoAlvo publicoAlvo, decimal valor)
-        {
-            Nome = nome;
-            Descricao = descricao;
-            CargaHoraria = cargaHoraria;
-            PublicoAlvo = publicoAlvo;
-            Valor = valor;
-
-            if (string.IsNullOrEmpty(nome))
-                throw new ArgumentException("Nome inválido.");
-
-            if (cargaHoraria < 1)
-                throw new ArgumentException("Carga horaria inválida.");
-
-            if (valor < 1)
-                throw new ArgumentException("Valor inválido.");
-        }
-
-        public string Nome { get; private set; }
-        public string Descricao { get; private set; }
-        public double CargaHoraria { get; private set; }
-        public PublicoAlvo PublicoAlvo { get; private set; }
-        public decimal Valor { get; private set; }
     }
 }

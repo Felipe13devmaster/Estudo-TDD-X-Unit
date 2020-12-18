@@ -1,7 +1,5 @@
-﻿using CursoOnline.Tests.Cursos;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CursoOnline.Domain.Entidades;
+using CursoOnline.Domain.Enums;
 
 namespace CursoOnline.Tests.Builders
 {
@@ -10,7 +8,7 @@ namespace CursoOnline.Tests.Builders
         private string _nome = "Informática";
         private string _descricao = "Curso básico.";
         private double _cargaHoraria = 80;
-        private PublicoAlvo _publicoAlvo = PublicoAlvo.Estudante;
+        private EPublicoAlvo _publicoAlvo = EPublicoAlvo.Estudante;
         private decimal _valor = 950;
 
         public static CursoBuilder CriarNovoCurso()
@@ -36,7 +34,7 @@ namespace CursoOnline.Tests.Builders
             return this;
         }
 
-        public CursoBuilder DefinirPublicoAlvo(PublicoAlvo publicoAlvo)
+        public CursoBuilder DefinirPublicoAlvo(EPublicoAlvo publicoAlvo)
         {
             _publicoAlvo = publicoAlvo;
             return this;
